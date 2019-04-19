@@ -22,6 +22,7 @@ public class QuizService {
         quizVo.setAnswer(quiz.getAnswer());
         quizVo.setSelections(quiz.getSelection());
         quizVo.setQuestion(quiz.getQuestion());
+        quizVo.setType(quiz.getType());
         return quizVo;
     }
 }

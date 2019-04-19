@@ -13,6 +13,8 @@ public class QuizVo {
 
     private List<Integer> answer;
 
+    private Integer type;
+
     public Long getId() {
         return id;
     }
@@ -43,6 +45,14 @@ public class QuizVo {
 
     public void setAnswer(List<Integer> answer) {
         this.answer = answer;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     public void setAnswer(String answer) {

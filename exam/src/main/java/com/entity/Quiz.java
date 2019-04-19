@@ -20,6 +20,9 @@ public class Quiz {
     @Column(name = "answer", columnDefinition = "varchar(254)")
     private String answer;
 
+    @Column(name = "type", columnDefinition = "int(1)")
+    private Integer type;
+
     @Column(name = "creator", columnDefinition = "int(11)")
     private Integer creator;
 
@@ -53,6 +56,14 @@ public class Quiz {
 
     public void setAnswer(String answer) {
         this.answer = answer;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     public Integer getCreator() {
