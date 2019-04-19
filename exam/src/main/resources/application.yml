@@ -1,11 +1,12 @@
 server:
-  port: 8080
+  port: 8099
 
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/exam?characterEncoding=utf8
     username: root
     password: 345
+    driver-class-name: com.mysql.jdbc.Driver
 
   jpa:
     database: MYSQL

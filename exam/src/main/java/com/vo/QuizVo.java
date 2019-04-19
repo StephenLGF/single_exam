@@ -1,0 +1,66 @@
+package com.vo;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class QuizVo {
+
+    private Long id;
+
+    private String question;
+
+    private List<String> selections;
+
+    private List<Integer> answer;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public List<String> getSelections() {
+        return selections;
+    }
+
+    public void setSelections(List<String> selections) {
+        this.selections = selections;
+    }
+
+    public List<Integer> getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(List<Integer> answer) {
+        this.answer = answer;
+    }
+
+    public void setAnswer(String answer) {
+        List<Integer> result = new ArrayList<>();
+        String[] answerArray = answer.split(",");
+        for (String answerStr : answerArray) {
+            result.add(Integer.parseInt(answerStr));
+        }
+        this.answer = result;
+    }
+
+
+    public void setSelections(String selections) {
+        List<String> result = new ArrayList<>();
+        String[] selectionsArray = selections.split(",");
+        for (String selectionsStr : selectionsArray) {
+            result.add(selectionsStr);
+        }
+        this.selections = result;
+    }
+}
