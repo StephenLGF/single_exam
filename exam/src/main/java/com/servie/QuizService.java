@@ -18,6 +18,9 @@ public class QuizService {
     public QuizVo getQuizById(Long id) {
         QuizVo quizVo = new QuizVo();
         Quiz quiz = quizRepository.findQuizById(id);
+        if (quiz == null) {
+            return null;
+        }
         quizVo.setId(quiz.getId());
         quizVo.setAnswer(quiz.getAnswer());
         quizVo.setSelections(quiz.getSelection());
