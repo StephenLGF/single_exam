@@ -57,4 +57,13 @@ public class WrongQuizService {
         }
         return wrongQuizVoList;
     }
+
+    public WrongQuiz addWrongQuiz(Long questionId, Long userId, String wAnswerArray) {
+        WrongQuiz wrongQuiz = new WrongQuiz();
+        wrongQuiz.setQuestionId(questionId);
+        wrongQuiz.setUserId(userId);
+        wrongQuiz.setwAnswer(wAnswerArray);
+        wrongQuizRepository.save(wrongQuiz);
+        return wrongQuiz;
+    }
 }
