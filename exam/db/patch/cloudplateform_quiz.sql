@@ -10,8 +10,8 @@
 -- created_time 题目创建时间
 -- 星号代码字段当前未使用
 
-DROP TABLE IF EXISTS `quiz`;
-CREATE TABLE `quiz` (
+DROP TABLE IF EXISTS `cloudplateform_quiz`;
+CREATE TABLE `cloudplateform_quiz` (
   `id`           INT(11)  NOT NULL AUTO_INCREMENT,
   `question`     VARCHAR(254)      DEFAULT NULL,
   `selection`    VARCHAR(254)      DEFAULT NULL,

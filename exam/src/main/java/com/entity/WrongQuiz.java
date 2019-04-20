@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "wrongquiz")
+@Table(name = "cloudplateform_wrongquiz")
 public class WrongQuiz {
 
     @Id

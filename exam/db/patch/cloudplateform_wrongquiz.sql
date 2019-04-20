@@ -2,11 +2,10 @@
 -- user_id 用户id
 -- quiz_id 题目id
 -- wrong_answer 用户选的错误答案
--- answer 正确答案
 -- created_time 题目创建时间
 
-DROP TABLE IF EXISTS `wrongquiz`;
-CREATE TABLE `wrongquiz` (
+DROP TABLE IF EXISTS `cloudplateform_wrongquiz`;
+CREATE TABLE `cloudplateform_wrongquiz` (
   `id`           INT(11) NOT NULL AUTO_INCREMENT,
   `user_id`      INT(11) NOT NULL,
   `quiz_id`      INT(11) NOT NULL,

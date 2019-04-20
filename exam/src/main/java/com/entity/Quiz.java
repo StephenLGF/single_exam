@@ -3,7 +3,7 @@ package com.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "quiz")
+@Table(name = "cloudplateform_quiz")
 public class Quiz {
 
     @Id
