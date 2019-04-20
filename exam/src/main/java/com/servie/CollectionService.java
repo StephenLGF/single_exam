@@ -42,15 +42,14 @@ public class CollectionService {
         List<CollectionVo> collectionVoList = new ArrayList<>();
         for (Collection collection : collectionList) {
             CollectionVo collectionVo = new CollectionVo();
-            collectionVo.setId(collection.getId());
             for (Quiz quiz : quizList) {
                 if (collection.getQuestionId() == quiz.getId()) {
-                    collectionVo.setAnswer(quiz.getAnswer());
                     collectionVo.setQuestion(quiz.getQuestion());
                     collectionVo.setSelections(quiz.getSelection());
                     collectionVo.setType(quiz.getType());
                 }
             }
+            collectionVo.setQuestionId(collection.getQuestionId());
             collectionVo.setTime(collection.getTime());
             collectionVoList.add(collectionVo);
         }

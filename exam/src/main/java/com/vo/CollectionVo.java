@@ -6,24 +6,22 @@ import java.util.List;
 
 public class CollectionVo {
 
-    private Long id;
+    private Long questionId;
 
     private String question;
 
     private List<String> selections;
 
-    private List<Integer> answer;
-
     private Integer type;
 
     private Date time;
 
-    public Long getId() {
-        return id;
+    public Long getQuestionId() {
+        return questionId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setQuestionId(Long questionId) {
+        this.questionId = questionId;
     }
 
     public String getQuestion() {
@@ -42,14 +40,6 @@ public class CollectionVo {
         this.selections = selections;
     }
 
-    public List<Integer> getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(List<Integer> answer) {
-        this.answer = answer;
-    }
-
     public Integer getType() {
         return type;
     }
@@ -64,15 +54,6 @@ public class CollectionVo {
 
     public void setTime(Date time) {
         this.time = time;
-    }
-
-    public void setAnswer(String answer) {
-        List<Integer> result = new ArrayList<>();
-        String[] answerArray = answer.split(",");
-        for (String answerStr : answerArray) {
-            result.add(Integer.parseInt(answerStr));
-        }
-        this.answer = result;
     }
 
     public void setSelections(String selections) {
