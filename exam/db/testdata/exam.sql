@@ -1,0 +1,1 @@
+INSERT INTO `cloudplateform_exam` (`user_id`, `paper_id`) VALUES (1, 1), (1, 2);
