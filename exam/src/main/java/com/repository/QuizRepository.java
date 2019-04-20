@@ -11,4 +11,6 @@ public interface QuizRepository extends JpaSpecificationExecutor<Quiz>, JpaRepos
     Quiz findQuizById(Long id);
 
     List<Quiz> findQuizByIdIn(Set<Long> idSet);
+
+    long count();
 }

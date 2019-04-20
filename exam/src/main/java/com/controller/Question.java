@@ -20,4 +20,9 @@ public class Question {
     public ResponseEntity getQuestionById(@PathVariable Long id) {
         return new ResponseEntity(quizService.getQuizById(id), HttpStatus.OK);
     }
+
+    @GetMapping(value = "/question/num")
+    public ResponseEntity getQuestionNum() {
+        return new ResponseEntity(quizService.getQuizNum(), HttpStatus.OK);
+    }
 }

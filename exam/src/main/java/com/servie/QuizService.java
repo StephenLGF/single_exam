@@ -28,4 +28,8 @@ public class QuizService {
         quizVo.setType(quiz.getType());
         return quizVo;
     }
+
+    public long getQuizNum() {
+        return quizRepository.count();
+    }
 }
