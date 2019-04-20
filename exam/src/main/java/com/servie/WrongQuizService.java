@@ -33,7 +33,7 @@ public class WrongQuizService {
         }
         Set<Long> questionSet = new HashSet<>();
         for (WrongQuiz wrongQuiz : wrongQuizList) {
-            questionSet.add(wrongQuiz.getId());
+            questionSet.add(wrongQuiz.getQuestionId());
         }
         List<Quiz> quizList = quizRepository.findQuizByIdIn(questionSet);
         if (quizList == null) {

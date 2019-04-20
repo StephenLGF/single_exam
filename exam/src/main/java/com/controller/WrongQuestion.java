@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.entity.WrongQuiz;
 import com.servie.WrongQuizService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +27,13 @@ public class WrongQuestion {
     }
 
     @PutMapping(value = "/wrongquestion/{questionId}")
-    public ResponseEntity createWrongQuestion(@PathVariable Long questionId, @RequestBody String wAnswer) {
+    public ResponseEntity createWrongQuestion(@PathVariable Long questionId, @RequestBody String json) {
         Long userId = 1L;
-        if (wAnswer.isEmpty()) {
+        if (json.isEmpty()) {
             return new ResponseEntity(null, HttpStatus.BAD_REQUEST);
         }
+        JSONObject body = JSONObject.parseObject(json);
+        String wAnswer = body.getString("wAnswer");
         WrongQuiz wrongQuiz = wrongQuizService.addWrongQuiz(questionId, userId, wAnswer);
         if (wrongQuiz != null) {
             return new ResponseEntity(wrongQuiz, HttpStatus.OK);
