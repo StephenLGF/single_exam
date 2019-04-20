@@ -6,11 +6,11 @@
 
 DROP TABLE IF EXISTS `cloudplateform_wrongquiz`;
 CREATE TABLE `cloudplateform_wrongquiz` (
-  `id`           INT(11) NOT NULL AUTO_INCREMENT,
-  `user_id`      INT(11) NOT NULL,
-  `quiz_id`      INT(11) NOT NULL,
-  `wrong_answer` VARCHAR(254)     DEFAULT NULL,
-  `created_time` DATETIME         DEFAULT CURRENT_TIMESTAMP,
+  `id`           INT(11)  NOT NULL AUTO_INCREMENT,
+  `user_id`      INT(11)  NOT NULL,
+  `quiz_id`      INT(11)  NOT NULL,
+  `wrong_answer` VARCHAR(254)      DEFAULT NULL,
+  `created_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB

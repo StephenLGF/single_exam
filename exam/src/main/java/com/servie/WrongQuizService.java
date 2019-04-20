@@ -4,12 +4,12 @@ import com.entity.Quiz;
 import com.entity.WrongQuiz;
 import com.repository.QuizRepository;
 import com.repository.WrongQuizRepository;
-import com.vo.QuizVo;
 import com.vo.WrongQuizVo;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -63,6 +63,7 @@ public class WrongQuizService {
         wrongQuiz.setQuestionId(questionId);
         wrongQuiz.setUserId(userId);
         wrongQuiz.setwAnswer(wAnswerArray);
+        wrongQuiz.setTime(new Date(System.currentTimeMillis()));
         wrongQuizRepository.save(wrongQuiz);
         return wrongQuiz;
     }

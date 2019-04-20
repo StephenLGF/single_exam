@@ -1,4 +1,4 @@
-INSERT INTO `quiz` (`question`, `selection`, `answer`, `creator`) VALUES
+INSERT INTO `cloudplateform_quiz` (`question`, `selection`, `answer`, `creator`) VALUES
   ("这是问题1，正确答案是A", "A,B,C,D", 0, 230),
   ("这是问题2，正确答案是B", "A,B,C,D", 1, 231),
   ("这是问题3，正确答案是C", "A,B,C,D", 2, 232),
