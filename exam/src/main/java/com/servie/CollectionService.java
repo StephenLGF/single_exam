@@ -10,10 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @Configuration
@@ -43,10 +40,11 @@ public class CollectionService {
         for (Collection collection : collectionList) {
             CollectionVo collectionVo = new CollectionVo();
             for (Quiz quiz : quizList) {
-                if (collection.getQuestionId() == quiz.getId()) {
+                if (Objects.equals(collection.getQuestionId(), quiz.getId())) {
                     collectionVo.setQuestion(quiz.getQuestion());
                     collectionVo.setSelections(quiz.getSelection());
                     collectionVo.setType(quiz.getType());
+                    break;
                 }
             }
             collectionVo.setQuestionId(collection.getQuestionId());

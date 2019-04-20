@@ -45,11 +45,12 @@ public class WrongQuizService {
             wrongQuizVo.setId(wrongQuiz.getId());
             wrongQuizVo.setwAnswer(wrongQuiz.getwAnswer());
             for (Quiz quiz : quizList) {
-                if (wrongQuiz.getQuestionId() == quiz.getId()) {
+                if (wrongQuiz.getQuestionId().equals(quiz.getId())) {
                     wrongQuizVo.setAnswer(quiz.getAnswer());
                     wrongQuizVo.setQuestion(quiz.getQuestion());
                     wrongQuizVo.setSelections(quiz.getSelection());
                     wrongQuizVo.setType(quiz.getType());
+                    break;
                 }
             }
             wrongQuizVo.setTime(wrongQuiz.getTime());

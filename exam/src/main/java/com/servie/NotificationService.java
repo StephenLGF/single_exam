@@ -26,12 +26,12 @@ public class NotificationService {
 
     public List<NotificationVo> getNormalByUserId(Long userId) {
         List<Notification> notificationList = notificationRepository.findByUserId(userId);
+        if (notificationList == null || notificationList.size() == 0) {
+            return null;
+        }
         Set<Long> messageIdSet = new HashSet<>();
         for (Notification notification : notificationList) {
             messageIdSet.add(notification.getMessageId());
-        }
-        if (notificationList == null || notificationList.size() == 0) {
-            return null;
         }
         List<Message> messageList = messageRepository.findByIdIn(messageIdSet);
         if (messageList == null || messageList.size() == 0) {
