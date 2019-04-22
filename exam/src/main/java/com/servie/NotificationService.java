@@ -42,6 +42,7 @@ public class NotificationService {
             NotificationVo notificationVo = new NotificationVo();
             notificationVo.setTitle(message.getTitle());
             notificationVo.setTime(message.getTime());
+            notificationVo.setType(message.getType());
             notificationVoList.add(notificationVo);
         }
         return notificationVoList;

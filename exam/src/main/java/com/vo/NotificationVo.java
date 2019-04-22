@@ -8,6 +8,8 @@ public class NotificationVo {
 
     private Date time;
 
+    private Integer type;
+
     public String getTitle() {
         return title;
     }
@@ -22,5 +24,13 @@ public class NotificationVo {
 
     public void setTime(Date time) {
         this.time = time;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 }
