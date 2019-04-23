@@ -40,6 +40,7 @@ public class NotificationService {
         List<NotificationVo> notificationVoList = new ArrayList<>();
         for (Message message : messageList) {
             NotificationVo notificationVo = new NotificationVo();
+            notificationVo.setMessageId(message.getId());
             notificationVo.setTitle(message.getTitle());
             notificationVo.setTime(message.getTime());
             notificationVo.setType(message.getType());
