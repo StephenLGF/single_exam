@@ -8,7 +8,7 @@ public class MessageVo {
 
     private String content;
 
-    private Integer creator;
+    private String creator;
 
     private Date time;
 
@@ -28,11 +28,11 @@ public class MessageVo {
         this.content = content;
     }
 
-    public Integer getCreator() {
+    public String getCreator() {
         return creator;
     }
 
-    public void setCreator(Integer creator) {
+    public void setCreator(String creator) {
         this.creator = creator;
     }
 

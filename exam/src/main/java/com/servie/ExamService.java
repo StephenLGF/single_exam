@@ -1,20 +1,16 @@
 package com.servie;
 
-import com.entity.Collection;
 import com.entity.Exam;
 import com.entity.Paper;
-import com.entity.Quiz;
-import com.repository.CollectionRepository;
+import com.entity.User;
 import com.repository.ExamRepository;
 import com.repository.PaperRepository;
-import com.repository.QuizRepository;
-import com.vo.CollectionVo;
+import com.repository.UserRepository;
 import com.vo.ExamVo;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.sql.Date;
 import java.util.*;
 
 @Service
@@ -26,6 +22,9 @@ public class ExamService {
 
     @Resource
     private PaperRepository paperRepository;
+
+    @Resource
+    private UserRepository userRepository;
 
     public List<ExamVo> getExamsByUserId(Long userId) {
         List<Exam> examList = examRepository.findByUserId(userId);
@@ -41,6 +40,11 @@ public class ExamService {
             return null;
         }
         List<ExamVo> examVoList = new ArrayList<>();
+        Set<Long> creatorSet = new HashSet<>();
+        for (Paper paper : paperList) {
+            creatorSet.add(paper.getCreator());
+        }
+        List<User> userList = userRepository.findByIdIn(creatorSet);
         for (Exam exam : examList) {
             ExamVo examVo = new ExamVo();
             examVo.setPaperId(exam.getPaperId());
@@ -50,8 +54,13 @@ public class ExamService {
             examVo.setState(exam.getState());
             for (Paper paper : paperList) {
                 if (Objects.equals(paper.getId(), exam.getPaperId())) {
+                    for (User user : userList) {
+                        if (user.getId().equals(paper.getCreator())) {
+                            examVo.setCreator(user.getName());
+                            break;
+                        }
+                    }
                     examVo.setCreateTime(paper.getTime());
-                    examVo.setCreator(paper.getCreator());
                     examVo.setName(paper.getName());
                     examVo.setQuestions(paper.getQuestions());
                     break;

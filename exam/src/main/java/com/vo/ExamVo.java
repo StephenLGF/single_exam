@@ -20,7 +20,7 @@ public class ExamVo {
 
     private Date createTime;
 
-    private Long creator;
+    private String creator;
 
     private List<Integer> questions;
 
@@ -80,11 +80,11 @@ public class ExamVo {
         this.createTime = createTime;
     }
 
-    public Long getCreator() {
+    public String getCreator() {
         return creator;
     }
 
-    public void setCreator(Long creator) {
+    public void setCreator(String creator) {
         this.creator = creator;
     }
 

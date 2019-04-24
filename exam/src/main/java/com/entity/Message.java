@@ -22,7 +22,7 @@ public class Message {
     private Integer type;
 
     @Column(name = "creator", columnDefinition = "int(11)")
-    private Integer creator;
+    private Long creator;
 
     @Column(name = "created_time", columnDefinition = "datetime")
     private Date time;
@@ -59,11 +59,11 @@ public class Message {
         this.type = type;
     }
 
-    public Integer getCreator() {
+    public Long getCreator() {
         return creator;
     }
 
-    public void setCreator(Integer creator) {
+    public void setCreator(Long creator) {
         this.creator = creator;
     }
 
