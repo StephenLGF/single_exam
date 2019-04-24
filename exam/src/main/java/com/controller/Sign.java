@@ -16,6 +16,8 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.sql.Date;
 import java.time.Instant;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api")
@@ -43,8 +45,10 @@ public class Sign {
         Long now = Instant.now().toEpochMilli();
         Long x = Math.round(Math.random() * 1000);
         Hashids hashids = new Hashids("this is my salt");
-        String token = hashids.encode(user.getId(), now, x);
-        return new ResponseEntity(token, HttpStatus.OK);
+        Map<String, String> result = new HashMap<>();
+        result.put("username", user.getName());
+        result.put("token", hashids.encode(user.getId(), now, x));
+        return new ResponseEntity(result, HttpStatus.OK);
     }
 
     @PutMapping(value = "/sign")
@@ -75,8 +79,10 @@ public class Sign {
         Long now = Instant.now().toEpochMilli();
         Long x = Math.round(Math.random() * 1000);
         Hashids hashids = new Hashids("this is my salt");
-        String token = hashids.encode(user.getId(), now, x);
-        return new ResponseEntity(token, HttpStatus.OK);
+        Map<String, String> result = new HashMap<>();
+        result.put("username", user.getName());
+        result.put("token", hashids.encode(user.getId(), now, x));
+        return new ResponseEntity(result, HttpStatus.OK);
     }
 
 
