@@ -21,10 +21,8 @@ public class Notice {
     private NotificationService notificationService = null;
 
     @GetMapping(value = "/notification")
-    public ResponseEntity getAllNotification(@RequestParam String json) {
-        JSONObject body = JSONObject.parseObject(json);
-        String token = body.getString("token");
-        if (token == null || token.isEmpty()) {
+    public ResponseEntity getAllNotification(@RequestParam(value = "token") String token) {
+        if (token.isEmpty()) {
             return new ResponseEntity(null, HttpStatus.UNAUTHORIZED);
         }
         Hashids hashids = new Hashids("this is my salt");

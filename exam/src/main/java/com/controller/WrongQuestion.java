@@ -19,10 +19,8 @@ public class WrongQuestion {
     private WrongQuizService wrongQuizService = null;
 
     @GetMapping(value = "/wrongquestion")
-    public ResponseEntity getQuestionById(@RequestParam String json) {
-        JSONObject body = JSONObject.parseObject(json);
-        String token = body.getString("token");
-        if (token == null || token.isEmpty()) {
+    public ResponseEntity getQuestionById(@RequestParam(value = "token") String token) {
+        if (token.isEmpty()) {
             return new ResponseEntity(null, HttpStatus.UNAUTHORIZED);
         }
         Hashids hashids = new Hashids("this is my salt");

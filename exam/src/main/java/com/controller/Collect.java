@@ -19,8 +19,18 @@ public class Collect {
     private CollectionService collectionService = null;
 
     @GetMapping(value = "/collection")
-    public ResponseEntity getQuestionById() {
-        Long userId = 1L;
+    public ResponseEntity getQuestionById(@RequestParam(value = "token") String token) {
+        if (token.isEmpty()) {
+            return new ResponseEntity(null, HttpStatus.UNAUTHORIZED);
+        }
+        Hashids hashids = new Hashids("this is my salt");
+        long[] decodeLong = hashids.decode(token);
+        Long userId = decodeLong[0];
+        Long tokenTime = decodeLong[1];
+        Long now = Instant.now().toEpochMilli();
+        if (now - tokenTime > 1000 * 60 * 60 * 5) {
+            return new ResponseEntity(null, HttpStatus.UNAUTHORIZED);
+        }
         return new ResponseEntity(collectionService.getCollectionByUserId(userId), HttpStatus.OK);
     }
 
