@@ -32,13 +32,13 @@ public class Sign {
             return new ResponseEntity(null, HttpStatus.BAD_REQUEST);
         }
         JSONObject body = JSONObject.parseObject(json);
-        Long id = body.getLong("id");
+        Long telNum = body.getLong("telNum");
         String password = body.getString("password");
         String encodePassword = getResult(password);
-        if (id == null || password == null || encodePassword == null) {
+        if (telNum == null || telNum == 0 || password == null || encodePassword == null) {
             return new ResponseEntity(null, HttpStatus.BAD_REQUEST);
         }
-        User user = userService.getUserNameByUserId(id);
+        User user = userService.getUserNameByTelNum(telNum);
         if (user == null || user.getPassword() == null || !encodePassword.equals(user.getPassword())) {
             return new ResponseEntity(null, HttpStatus.NOT_FOUND);
         }
@@ -57,22 +57,21 @@ public class Sign {
             return new ResponseEntity(null, HttpStatus.BAD_REQUEST);
         }
         JSONObject body = JSONObject.parseObject(json);
-        Long id = body.getLong("id");
+        Long telNum = body.getLong("telNum");
         String name = body.getString("name");
         String password = body.getString("password");
         String encodePassword = getResult(password);
-        if (id == null || id == 0 || name == null || name.isEmpty() || password == null || encodePassword == null) {
+        if (telNum == null || telNum == 0 || name == null || name.isEmpty() || password == null || password.isEmpty() || encodePassword == null) {
             return new ResponseEntity(null, HttpStatus.BAD_REQUEST);
         }
-        User user = userService.getUserNameByUserId(id);
+        User user = userService.getUserNameByTelNum(telNum);
         if (user != null) {
             return new ResponseEntity(null, HttpStatus.NOT_ACCEPTABLE);
         } else {
             user = new User();
-            user.setId(id);
+            user.setTelNum(telNum);
             user.setPassword(encodePassword);
             user.setName(name);
-            user.setType(0);
             user.setTime(new Date(System.currentTimeMillis()));
             userService.createUser(user);
         }

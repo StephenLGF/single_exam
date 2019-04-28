@@ -10,5 +10,7 @@ import java.util.Set;
 public interface UserRepository extends JpaSpecificationExecutor<User>, JpaRepository<User, Long> {
     User findById(Long id);
 
+    User findByTelNum(Long telNum);
+
     List<User> findByIdIn(Set<Long> ids);
 }

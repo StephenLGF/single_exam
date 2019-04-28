@@ -4,21 +4,24 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "cloudplateform_user")
+@Table(name = "user")
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", columnDefinition = "int(11)")
     private Long id;
 
-    @Column(name = "name", columnDefinition = "varchar(254)")
-    private String name;
+
+    @Column(name = "tel", columnDefinition = "int(11)")
+    private Long telNum;
 
     @Column(name = "password", columnDefinition = "varchar(254)")
     private String password;
 
-    @Column(name = "type", columnDefinition = "int(1)")
-    private Integer type;
+
+    @Column(name = "name", columnDefinition = "varchar(254)")
+    private String name;
 
     @Column(name = "created_time", columnDefinition = "datetime")
     private Date time;
@@ -31,12 +34,12 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Long getTelNum() {
+        return telNum;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTelNum(Long telNum) {
+        this.telNum = telNum;
     }
 
     public String getPassword() {
@@ -47,12 +50,12 @@ public class User {
         this.password = password;
     }
 
-    public Integer getType() {
-        return type;
+    public String getName() {
+        return name;
     }
 
-    public void setType(Integer type) {
-        this.type = type;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Date getTime() {
