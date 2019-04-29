@@ -9,5 +9,7 @@ import java.util.List;
 public interface VisitListRepository extends JpaSpecificationExecutor<VisitList>, JpaRepository<VisitList, Long> {
     List<VisitList> findByUserId(Long userId);
 
+    List<VisitList> findByUserIdAndNewsId(Long userId, Long newsId);
+
     VisitList save(VisitList visitList);
 }

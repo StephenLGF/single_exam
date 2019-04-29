@@ -1,17 +1,13 @@
 package com.servie;
 
-import com.entity.Collection;
 import com.entity.News;
-import com.entity.Quiz;
 import com.entity.VisitList;
 import com.repository.NewsRepository;
 import com.repository.VisitListRepository;
-import com.vo.CollectionVo;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.sql.Date;
 import java.util.*;
 
 @Service
@@ -34,17 +30,32 @@ public class VisitListService {
             newsIdSet.add(visitList.getNewsId());
         }
         List<News> newsList = newsRepository.findByIdIn(newsIdSet);
-        if (newsList == null) {
-            return null;
+        List<News> news = new ArrayList<>();
+        for (VisitList visitList : visitListList) {
+            for (News news1 : newsList) {
+                if (news1.getId().equals(visitList.getNewsId())) {
+                    news.add(news1);
+                    break;
+                }
+            }
         }
-        return newsList;
+        return news;
     }
 
     public VisitList addVisitHistory(Long newsId, Long userId) {
-        VisitList visitList = new VisitList();
-        visitList.setNewsId(newsId);
-        visitList.setUserId(userId);
-        visitList.setTime(new Date(System.currentTimeMillis()));
+        List<VisitList> visitListList = visitListRepository.findByUserIdAndNewsId(userId, newsId);
+        VisitList visitList;
+        Date dateNow = new Date(System.currentTimeMillis());
+        Long a = dateNow.getTime();
+        if (visitListList != null && visitListList.size() > 0 && visitListList.get(0).getTime() != null
+                && (a - visitListList.get(0).getTime().getTime()) < 1000 * 30 * 20) {
+            visitList = visitListList.get(0);
+        } else {
+            visitList = new VisitList();
+            visitList.setNewsId(newsId);
+            visitList.setUserId(userId);
+            visitList.setTime(dateNow);
+        }
         return visitListRepository.save(visitList);
     }
 }
