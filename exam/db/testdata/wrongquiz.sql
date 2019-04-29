@@ -1,1 +1,0 @@
-INSERT INTO `cloudplateform_wrongquiz`(`user_id`, `quiz_id`, `wrong_answer`) VALUES (1,1,1),(1,2,3);

@@ -41,8 +41,8 @@ public class Collect {
         return new ResponseEntity(newsService.translate(newsList), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/collection/{questionId}")
-    public ResponseEntity createWrongQuestion(@PathVariable Long questionId, @RequestBody String json) {
+    @PutMapping(value = "/collection/{newsId}")
+    public ResponseEntity createWrongQuestion(@PathVariable Long newsId, @RequestBody String json) {
         JSONObject body = JSONObject.parseObject(json);
         String token = body.getString("token");
         if (token == null || token.isEmpty()) {
@@ -56,7 +56,7 @@ public class Collect {
         if (now - tokenTime > 1000 * 60 * 60 * 5) {
             return new ResponseEntity(null, HttpStatus.UNAUTHORIZED);
         }
-        Collection collection = collectionService.addCollection(questionId, userId);
+        Collection collection = collectionService.addCollection(newsId, userId);
         if (collection != null) {
             return new ResponseEntity(collection, HttpStatus.OK);
         }
