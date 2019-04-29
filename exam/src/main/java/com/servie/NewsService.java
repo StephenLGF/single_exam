@@ -58,6 +58,7 @@ public class NewsService {
             newsVo.setTitle(news.getTitle());
             newsVo.setCreateTime(news.getTime());
             newsVo.setProvider(news.getProviderId().toString());
+            newsVo.setType(news.getType());
             newsVoList.add(newsVo);
         }
         return newsVoList;
