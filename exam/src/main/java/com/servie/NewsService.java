@@ -49,17 +49,15 @@ public class NewsService {
         return translate(newsList);
     }
 
-    private List<NewsVo> translate(List<News> newsList) {
+    public List<NewsVo> translate(List<News> newsList) {
 
         List<NewsVo> newsVoList = new ArrayList<>();
         for (News news : newsList) {
             NewsVo newsVo = new NewsVo();
             newsVo.setNewsId(news.getId());
             newsVo.setTitle(news.getTitle());
-            newsVo.setContent(news.getContent());
             newsVo.setCreateTime(news.getTime());
             newsVo.setProvider(news.getProviderId().toString());
-            newsVo.setType(news.getType());
             newsVoList.add(newsVo);
         }
         return newsVoList;

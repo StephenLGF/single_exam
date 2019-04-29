@@ -1,10 +1,9 @@
 package com.servie;
 
 import com.entity.Collection;
-import com.entity.Quiz;
+import com.entity.News;
 import com.repository.CollectionRepository;
-import com.repository.QuizRepository;
-import com.vo.CollectionVo;
+import com.repository.NewsRepository;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 
@@ -19,44 +18,29 @@ public class CollectionService {
     @Resource
     private CollectionRepository collectionRepository;
 
-
     @Resource
-    private QuizRepository quizRepository;
+    private NewsRepository newsRepository;
 
-    public List<CollectionVo> getCollectionByUserId(Long userId) {
+
+    public List<News> getCollectionByUserId(Long userId) {
         List<Collection> collectionList = collectionRepository.findByUserId(userId);
         if (collectionList == null) {
             return null;
         }
-        Set<Long> questionSet = new HashSet<>();
+        Set<Long> newsIdSet = new HashSet<>();
         for (Collection collection : collectionList) {
-            questionSet.add(collection.getQuestionId());
+            newsIdSet.add(collection.getNewsId());
         }
-        List<Quiz> quizList = quizRepository.findQuizByIdIn(questionSet);
-        if (quizList == null) {
+        List<News> newsList = newsRepository.findByIdIn(newsIdSet);
+        if (newsList == null) {
             return null;
         }
-        List<CollectionVo> collectionVoList = new ArrayList<>();
-        for (Collection collection : collectionList) {
-            CollectionVo collectionVo = new CollectionVo();
-            for (Quiz quiz : quizList) {
-                if (Objects.equals(collection.getQuestionId(), quiz.getId())) {
-                    collectionVo.setQuestion(quiz.getQuestion());
-                    collectionVo.setSelections(quiz.getSelection());
-                    collectionVo.setType(quiz.getType());
-                    break;
-                }
-            }
-            collectionVo.setQuestionId(collection.getQuestionId());
-            collectionVo.setTime(collection.getTime());
-            collectionVoList.add(collectionVo);
-        }
-        return collectionVoList;
+        return newsList;
     }
 
-    public Collection addCollection(Long questionId, Long userId) {
+    public Collection addCollection(Long newsId, Long userId) {
         Collection collection = new Collection();
-        collection.setQuestionId(questionId);
+        collection.setNewsId(newsId);
         collection.setUserId(userId);
         collection.setTime(new Date(System.currentTimeMillis()));
         collectionRepository.save(collection);

@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "collection")
-public class Collection {
+@Table(name = "visit_list")
+public class VisitList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +18,7 @@ public class Collection {
     @Column(name = "news_id", columnDefinition = "int(11)")
     private Long newsId;
 
-    @Column(name = "created_time", columnDefinition = "datetime")
+    @Column(name = "visited_time", columnDefinition = "datetime")
     private Date time;
 
     public Long getId() {

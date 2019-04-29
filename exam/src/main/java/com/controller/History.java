@@ -3,8 +3,10 @@ package com.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.entity.Collection;
 import com.entity.News;
+import com.entity.VisitList;
 import com.servie.CollectionService;
 import com.servie.NewsService;
+import com.servie.VisitListService;
 import org.hashids.Hashids;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,15 +18,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api")
-public class Collect {
+public class History {
 
     @Autowired
-    private CollectionService collectionService = null;
+    private VisitListService visitListService = null;
 
     @Autowired
     private NewsService newsService = null;
 
-    @GetMapping(value = "/collection")
+    @GetMapping(value = "/history")
     public ResponseEntity getQuestionById(@RequestParam(value = "token") String token) {
         if (token.isEmpty()) {
             return new ResponseEntity(null, HttpStatus.UNAUTHORIZED);
@@ -37,12 +39,12 @@ public class Collect {
         if (now - tokenTime > 1000 * 60 * 60 * 5) {
             return new ResponseEntity(null, HttpStatus.UNAUTHORIZED);
         }
-        List<News> newsList = collectionService.getCollectionByUserId(userId);
+        List<News> newsList = visitListService.getVisitListByUserId(userId);
         return new ResponseEntity(newsService.translate(newsList), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/collection/{questionId}")
-    public ResponseEntity createWrongQuestion(@PathVariable Long questionId, @RequestBody String json) {
+    @PutMapping(value = "/history/news/{newsId}")
+    public ResponseEntity createWrongQuestion(@PathVariable Long newsId, @RequestBody String json) {
         JSONObject body = JSONObject.parseObject(json);
         String token = body.getString("token");
         if (token == null || token.isEmpty()) {
@@ -56,9 +58,9 @@ public class Collect {
         if (now - tokenTime > 1000 * 60 * 60 * 5) {
             return new ResponseEntity(null, HttpStatus.UNAUTHORIZED);
         }
-        Collection collection = collectionService.addCollection(questionId, userId);
-        if (collection != null) {
-            return new ResponseEntity(collection, HttpStatus.OK);
+        VisitList visitList = visitListService.addVisitHistory(newsId, userId);
+        if (visitList != null) {
+            return new ResponseEntity(visitList, HttpStatus.OK);
         }
         return new ResponseEntity(null, HttpStatus.NOT_FOUND);
     }

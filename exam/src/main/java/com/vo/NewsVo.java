@@ -8,10 +8,6 @@ public class NewsVo {
 
     private String title;
 
-    private String content;
-
-    private Integer type;
-
     private Date createTime;
 
     private String provider;
@@ -30,22 +26,6 @@ public class NewsVo {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
     }
 
     public Date getCreateTime() {
