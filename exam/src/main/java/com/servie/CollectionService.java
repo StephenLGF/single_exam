@@ -46,4 +46,8 @@ public class CollectionService {
         collectionRepository.save(collection);
         return collection;
     }
+
+    public List<Collection> getCollectionByNewsId(Long newsId) {
+        return collectionRepository.findByNewsId(newsId);
+    }
 }

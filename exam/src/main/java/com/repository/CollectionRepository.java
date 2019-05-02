@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface CollectionRepository extends JpaSpecificationExecutor<Collection>, JpaRepository<Collection, Long> {
     List<Collection> findByUserId(Long userId);
+
+    List<Collection> findByNewsId(Long newsId);
 }
