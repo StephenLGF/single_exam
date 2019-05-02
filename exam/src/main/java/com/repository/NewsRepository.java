@@ -15,4 +15,6 @@ public interface NewsRepository extends JpaSpecificationExecutor<News>, JpaRepos
     List<News> findByType(Integer type);
 
     List<News> findByIdIn(Set<Long> idSet);
+
+    News findById(Long id);
 }

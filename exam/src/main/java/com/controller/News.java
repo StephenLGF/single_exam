@@ -1,12 +1,15 @@
 package com.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.entity.Collection;
 import com.servie.NewsService;
+import org.hashids.Hashids;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.Instant;
 
 @RestController
 @RequestMapping("api")
@@ -33,6 +36,12 @@ public class News {
     @GetMapping(value = "/news/videos")
     public ResponseEntity getVideos() {
         return new ResponseEntity(newsService.getAllVideos(), HttpStatus.OK);
+    }
+
+
+    @GetMapping(value = "/news/{newsId}")
+    public ResponseEntity getNewsById(@PathVariable Long newsId) {
+        return new ResponseEntity(newsService.getNewsById(newsId), HttpStatus.OK);
     }
 
 }

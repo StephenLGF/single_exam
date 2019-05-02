@@ -1,10 +1,7 @@
 package com.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.entity.Collection;
 import com.entity.User;
-import com.entity.WrongQuiz;
-import com.servie.CollectionService;
 import com.servie.UserService;
 import org.hashids.Hashids;
 import org.springframework.beans.factory.annotation.Autowired;

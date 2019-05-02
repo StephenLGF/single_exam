@@ -1,10 +1,8 @@
 package com.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.entity.Collection;
 import com.entity.News;
 import com.entity.VisitList;
-import com.servie.CollectionService;
 import com.servie.NewsService;
 import com.servie.VisitListService;
 import org.hashids.Hashids;

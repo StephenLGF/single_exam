@@ -63,4 +63,14 @@ public class NewsService {
         }
         return newsVoList;
     }
+
+    public List<String> getNewsById(Long newsId) {
+        News news = newsRepository.findById(newsId);
+        List<String> result = new ArrayList<>();
+        String[] content = news.getContent().split(",");
+        for (String item : content) {
+            result.add(item);
+        }
+        return result;
+    }
 }
