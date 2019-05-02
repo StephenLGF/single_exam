@@ -10,10 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @Configuration
@@ -24,9 +21,6 @@ public class CommentService {
 
     @Resource
     private UserRepository userRepository;
-
-    @Resource
-    private NewsRepository newsRepository;
 
     public List<CommentVo> getCommentByNewsId(Long newsId) {
         List<Comment> commentList = commentRepository.findByNewsId(newsId);
@@ -52,5 +46,15 @@ public class CommentService {
             commentVoList.add(commentVo);
         }
         return commentVoList;
+    }
+
+    public Comment AddComment(Long newsId, Long userId, String content) {
+        Comment comment = new Comment();
+        comment.setNewsId(newsId);
+        comment.setUserId(userId);
+        comment.setTime(new Date(System.currentTimeMillis()));
+        comment.setContent(content);
+        commentRepository.save(comment);
+        return comment;
     }
 }
