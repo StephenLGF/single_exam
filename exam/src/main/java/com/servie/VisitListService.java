@@ -1,8 +1,10 @@
 package com.servie;
 
 import com.entity.News;
+import com.entity.Provider;
 import com.entity.VisitList;
 import com.repository.NewsRepository;
+import com.repository.ProviderRepository;
 import com.repository.VisitListRepository;
 import com.vo.VisitListVo;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +23,9 @@ public class VisitListService {
     @Resource
     private NewsRepository newsRepository;
 
+    @Resource
+    private ProviderRepository providerRepository;
+
     public List<VisitListVo> getVisitListByUserId(Long userId) {
         List<VisitList> visitListList = visitListRepository.findByUserId(userId);
         if (visitListList == null) {
@@ -33,6 +38,11 @@ public class VisitListService {
             }
         }
         List<News> newsList = newsRepository.findByIdIn(newsIdSet);
+        Set<Long> providerIdSet = new HashSet<>();
+        for (News news : newsList) {
+            providerIdSet.add(news.getProviderId());
+        }
+        List<Provider> providerList = providerRepository.findByIdIn(providerIdSet);
         List<VisitListVo> visitListVoList = new ArrayList<>();
         for (VisitList visitList : visitListList) {
             if (visitList.getDeleted() > 0) {
@@ -44,10 +54,14 @@ public class VisitListService {
             visitListVo.setNewsId(visitList.getNewsId());
             for (News news1 : newsList) {
                 if (news1.getId().equals(visitList.getNewsId())) {
-
-                    visitListVo.setProvider(news1.getProviderId().toString());
                     visitListVo.setTitle(news1.getTitle());
                     visitListVo.setType(news1.getType());
+                    for (Provider provider : providerList) {
+                        if (Objects.equals(provider.getId(), news1.getProviderId())) {
+                            visitListVo.setProvider(provider.getName());
+                            break;
+                        }
+                    }
                     break;
                 }
             }

@@ -41,7 +41,7 @@ public class CollectionService {
     }
 
     public Collection addCollection(Long newsId, Long userId) {
-        Collection collection = (Collection) collectionRepository.findByUserIdAndNewsId(userId, newsId);
+        Collection collection = collectionRepository.findByUserIdAndNewsId(userId, newsId);
         if (collection == null) {
             collection = new Collection();
             collection.setNewsId(newsId);

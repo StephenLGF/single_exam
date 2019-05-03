@@ -22,7 +22,7 @@ public class News {
     private Integer type;
 
     @Column(name = "provider_id", columnDefinition = "int(11)")
-    private Integer providerId;
+    private Long providerId;
 
     @Column(name = "created_time", columnDefinition = "datetime")
     private Date time;
@@ -59,11 +59,11 @@ public class News {
         this.type = type;
     }
 
-    public Integer getProviderId() {
+    public Long getProviderId() {
         return providerId;
     }
 
-    public void setProviderId(Integer providerId) {
+    public void setProviderId(Long providerId) {
         this.providerId = providerId;
     }
 
