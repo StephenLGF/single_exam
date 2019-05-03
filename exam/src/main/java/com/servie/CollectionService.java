@@ -29,7 +29,9 @@ public class CollectionService {
         }
         Set<Long> newsIdSet = new HashSet<>();
         for (Collection collection : collectionList) {
-            newsIdSet.add(collection.getNewsId());
+            if (collection.getDeleted() == 0) {
+                newsIdSet.add(collection.getNewsId());
+            }
         }
         List<News> newsList = newsRepository.findByIdIn(newsIdSet);
         if (newsList == null) {
@@ -39,10 +41,17 @@ public class CollectionService {
     }
 
     public Collection addCollection(Long newsId, Long userId) {
-        Collection collection = new Collection();
-        collection.setNewsId(newsId);
-        collection.setUserId(userId);
-        collection.setTime(new Date(System.currentTimeMillis()));
+        Collection collection = (Collection) collectionRepository.findByUserIdAndNewsId(userId, newsId);
+        if (collection == null) {
+            collection = new Collection();
+            collection.setNewsId(newsId);
+            collection.setUserId(userId);
+            collection.setDeleted(0);
+            collection.setTime(new Date(System.currentTimeMillis()));
+        } else {
+            collection.setDeleted(1);
+        }
+
         collectionRepository.save(collection);
         return collection;
     }

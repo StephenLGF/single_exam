@@ -21,6 +21,9 @@ public class Collection {
     @Column(name = "created_time", columnDefinition = "datetime")
     private Date time;
 
+    @Column(name = "deleted", columnDefinition = "int(1)")
+    private Integer deleted;
+
     public Long getId() {
         return id;
     }
@@ -51,5 +54,13 @@ public class Collection {
 
     public void setTime(Date time) {
         this.time = time;
+    }
+
+    public Integer getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
     }
 }

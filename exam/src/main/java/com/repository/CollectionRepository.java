@@ -10,4 +10,6 @@ public interface CollectionRepository extends JpaSpecificationExecutor<Collectio
     List<Collection> findByUserId(Long userId);
 
     List<Collection> findByNewsId(Long newsId);
+
+    Collection findByUserIdAndNewsId(Long userId, Long NewsId);
 }
