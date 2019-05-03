@@ -5,10 +5,11 @@
 
 DROP TABLE IF EXISTS `visit_list`;
 CREATE TABLE `visit_list` (
-  `id`           INT(11)  NOT NULL       AUTO_INCREMENT,
-  `user_id`      INT(11)  NOT NULL,
-  `news_id`      INT(11)  NOT NULL,
-  `visited_time` DATETIME NOT NULL       DEFAULT CURRENT_TIMESTAMP,
+  `id`           INT(11)    NOT NULL       AUTO_INCREMENT,
+  `user_id`      INT(11)    NOT NULL,
+  `news_id`      INT(11)    NOT NULL,
+  `visited_time` DATETIME   NOT NULL       DEFAULT CURRENT_TIMESTAMP,
+  `deleted`      TINYINT(1) NOT NULL       DEFAULT 0,
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB

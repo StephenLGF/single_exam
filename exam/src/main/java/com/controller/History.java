@@ -1,10 +1,10 @@
 package com.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.entity.News;
 import com.entity.VisitList;
 import com.servie.NewsService;
 import com.servie.VisitListService;
+import com.vo.VisitListVo;
 import org.hashids.Hashids;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,8 +37,8 @@ public class History {
         if (now - tokenTime > 1000 * 60 * 60 * 5) {
             return new ResponseEntity(null, HttpStatus.UNAUTHORIZED);
         }
-        List<News> newsList = visitListService.getVisitListByUserId(userId);
-        return new ResponseEntity(newsService.translate(newsList), HttpStatus.OK);
+        List<VisitListVo> visitListVoList = visitListService.getVisitListByUserId(userId);
+        return new ResponseEntity(visitListVoList, HttpStatus.OK);
     }
 
     @PutMapping(value = "/history/news/{newsId}")
@@ -61,5 +61,24 @@ public class History {
             return new ResponseEntity(visitList, HttpStatus.OK);
         }
         return new ResponseEntity(null, HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping(value = "/history/{visitId}")
+    public ResponseEntity deleteHistory(@PathVariable Long visitId, @RequestBody String json) {
+        JSONObject body = JSONObject.parseObject(json);
+        String token = body.getString("token");
+        if (token == null || token.isEmpty()) {
+            return new ResponseEntity(null, HttpStatus.UNAUTHORIZED);
+        }
+        Hashids hashids = new Hashids("this is my salt");
+        long[] decodeLong = hashids.decode(token);
+        Long userId = decodeLong[0];
+        Long tokenTime = decodeLong[1];
+        Long now = Instant.now().toEpochMilli();
+        if (now - tokenTime > 1000 * 60 * 60 * 5) {
+            return new ResponseEntity(null, HttpStatus.UNAUTHORIZED);
+        }
+        VisitList visitList = visitListService.deleteVisitHistory(visitId, userId);
+        return new ResponseEntity(visitList, HttpStatus.OK);
     }
 }

@@ -26,6 +26,9 @@ public class NotificationService {
             return notificationVoList;
         }
         for (Notification notification : notificationList) {
+            if (notification.getDeleted() > 0) {
+                continue;
+            }
             NotificationVo notificationVo = new NotificationVo();
             notificationVo.setId(notification.getId());
             notificationVo.setTime(notification.getTime());

@@ -4,6 +4,7 @@ import com.entity.News;
 import com.entity.VisitList;
 import com.repository.NewsRepository;
 import com.repository.VisitListRepository;
+import com.vo.VisitListVo;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 
@@ -20,26 +21,39 @@ public class VisitListService {
     @Resource
     private NewsRepository newsRepository;
 
-    public List<News> getVisitListByUserId(Long userId) {
+    public List<VisitListVo> getVisitListByUserId(Long userId) {
         List<VisitList> visitListList = visitListRepository.findByUserId(userId);
         if (visitListList == null) {
             return null;
         }
         Set<Long> newsIdSet = new HashSet<>();
         for (VisitList visitList : visitListList) {
-            newsIdSet.add(visitList.getNewsId());
+            if (visitList.getDeleted() == 0) {
+                newsIdSet.add(visitList.getNewsId());
+            }
         }
         List<News> newsList = newsRepository.findByIdIn(newsIdSet);
-        List<News> news = new ArrayList<>();
+        List<VisitListVo> visitListVoList = new ArrayList<>();
         for (VisitList visitList : visitListList) {
+            if (visitList.getDeleted() > 0) {
+                continue;
+            }
+            VisitListVo visitListVo = new VisitListVo();
+            visitListVo.setId(visitList.getId());
+            visitListVo.setCreateTime(visitList.getTime());
+            visitListVo.setNewsId(visitList.getNewsId());
             for (News news1 : newsList) {
                 if (news1.getId().equals(visitList.getNewsId())) {
-                    news.add(news1);
+
+                    visitListVo.setProvider(news1.getProviderId().toString());
+                    visitListVo.setTitle(news1.getTitle());
+                    visitListVo.setType(news1.getType());
                     break;
                 }
             }
+            visitListVoList.add(visitListVo);
         }
-        return news;
+        return visitListVoList;
     }
 
     public VisitList addVisitHistory(Long newsId, Long userId) {
@@ -57,5 +71,15 @@ public class VisitListService {
             visitList.setTime(dateNow);
         }
         return visitListRepository.save(visitList);
+    }
+
+    public VisitList deleteVisitHistory(Long visitId, Long userId) {
+        VisitList visitList = visitListRepository.findById(visitId);
+        if (visitList == null || !Objects.equals(visitList.getUserId(), userId)) {
+            return null;
+        }
+        visitList.setDeleted(1);
+        visitListRepository.save(visitList);
+        return visitList;
     }
 }

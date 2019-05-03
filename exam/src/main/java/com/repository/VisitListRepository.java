@@ -11,5 +11,7 @@ public interface VisitListRepository extends JpaSpecificationExecutor<VisitList>
 
     List<VisitList> findByUserIdAndNewsId(Long userId, Long newsId);
 
+    VisitList findById(Long id);
+
     VisitList save(VisitList visitList);
 }
