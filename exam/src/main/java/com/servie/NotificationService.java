@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Configuration
@@ -26,6 +27,7 @@ public class NotificationService {
         }
         for (Notification notification : notificationList) {
             NotificationVo notificationVo = new NotificationVo();
+            notificationVo.setId(notification.getId());
             notificationVo.setTime(notification.getTime());
             notificationVo.setContent(notification.getContent());
             notificationVo.setNewsId(notification.getNewsId());
@@ -43,4 +45,15 @@ public class NotificationService {
         notificationRepository.save(notification);
         return notification;
     }
+
+    public Notification deletaNotification(Long userId, Long noticeId) {
+        Notification notification = notificationRepository.findById(noticeId);
+        if (notification == null || !Objects.equals(notification.getUserId(), userId)) {
+            return null;
+        }
+        notification.setDeleted(1);
+        notificationRepository.save(notification);
+        return notification;
+    }
+
 }

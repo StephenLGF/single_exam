@@ -10,4 +10,6 @@ public interface NotificationRepository extends JpaSpecificationExecutor<Notific
 
     List<Notification> findByUserId(Long userId);
 
+    Notification findById(Long id);
+
 }

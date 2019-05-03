@@ -4,12 +4,21 @@ import java.util.Date;
 
 public class NotificationVo {
 
+    private Long id;
 
     private Long newsId;
 
     private String content;
 
     private Date Time;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getNewsId() {
         return newsId;
