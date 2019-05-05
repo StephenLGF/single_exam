@@ -21,9 +21,6 @@ public class History {
     @Autowired
     private VisitListService visitListService = null;
 
-    @Autowired
-    private NewsService newsService = null;
-
     @GetMapping(value = "/history")
     public ResponseEntity getQuestionById(@RequestParam(value = "token") String token) {
         if (token.isEmpty()) {
