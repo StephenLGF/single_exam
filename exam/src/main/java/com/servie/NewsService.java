@@ -1,5 +1,7 @@
 package com.servie;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.entity.News;
 import com.entity.Provider;
 import com.repository.NewsRepository;
@@ -79,16 +81,12 @@ public class NewsService {
         return newsVoList;
     }
 
-    public List<String> getNewsById(Long newsId) {
+    public JSONArray getNewsById(Long newsId) {
         News news = newsRepository.findById(newsId);
         if (news == null) {
             return null;
         }
-        List<String> result = new ArrayList<>();
-        String[] content = news.getContent().split(",");
-        for (String item : content) {
-            result.add(item);
-        }
-        return result;
+        JSONArray jsonArray = JSON.parseArray(news.getContent());
+        return jsonArray;
     }
 }
