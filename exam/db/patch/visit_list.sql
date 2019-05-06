@@ -2,6 +2,7 @@
 -- user_id 用户id
 -- news_id 新闻id
 -- created_time 新闻浏览时间
+-- deleted 0正常 1删除
 
 DROP TABLE IF EXISTS `visit_list`;
 CREATE TABLE `visit_list` (

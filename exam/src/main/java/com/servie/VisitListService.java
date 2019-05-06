@@ -28,12 +28,12 @@ public class VisitListService {
 
     public List<VisitListVo> getVisitListByUserId(Long userId) {
         List<VisitList> visitListList = visitListRepository.findByUserId(userId);
-        if (visitListList == null) {
+        if (visitListList == null || visitListList.size() == 0) {
             return null;
         }
         Set<Long> newsIdSet = new HashSet<>();
         for (VisitList visitList : visitListList) {
-            if (visitList.getDeleted() == 0) {
+            if (visitList.getDeleted() != null && visitList.getDeleted() == 0) {
                 newsIdSet.add(visitList.getNewsId());
             }
         }
@@ -83,6 +83,7 @@ public class VisitListService {
             visitList.setNewsId(newsId);
             visitList.setUserId(userId);
             visitList.setTime(dateNow);
+            visitList.setDeleted(0);
         }
         return visitListRepository.save(visitList);
     }

@@ -81,6 +81,9 @@ public class NewsService {
 
     public List<String> getNewsById(Long newsId) {
         News news = newsRepository.findById(newsId);
+        if (news == null) {
+            return null;
+        }
         List<String> result = new ArrayList<>();
         String[] content = news.getContent().split(",");
         for (String item : content) {
