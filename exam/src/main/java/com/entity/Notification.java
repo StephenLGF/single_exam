@@ -15,9 +15,6 @@ public class Notification {
     @Column(name = "user_id", columnDefinition = "int(11)")
     private Long userId;
 
-    @Column(name = "news_id", columnDefinition = "int(11)")
-    private Long newsId;
-
     @Column(name = "content", columnDefinition = "varchar(254)")
     private String content;
 
@@ -41,14 +38,6 @@ public class Notification {
 
     public void setUserId(Long userId) {
         this.userId = userId;
-    }
-
-    public Long getNewsId() {
-        return newsId;
-    }
-
-    public void setNewsId(Long newsId) {
-        this.newsId = newsId;
     }
 
     public String getContent() {

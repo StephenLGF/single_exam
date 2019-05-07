@@ -33,15 +33,13 @@ public class NotificationService {
             notificationVo.setId(notification.getId());
             notificationVo.setTime(notification.getTime());
             notificationVo.setContent(notification.getContent());
-            notificationVo.setNewsId(notification.getNewsId());
             notificationVoList.add(notificationVo);
         }
         return notificationVoList;
     }
 
-    public Notification AddNotification(Long newsId, Long userId, String content) {
+    public Notification AddNotification(Long userId, String content) {
         Notification notification = new Notification();
-        notification.setNewsId(newsId);
         notification.setUserId(userId);
         notification.setTime(new Date(System.currentTimeMillis()));
         notification.setContent(content);

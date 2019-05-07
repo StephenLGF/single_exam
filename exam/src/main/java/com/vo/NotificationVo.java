@@ -6,8 +6,6 @@ public class NotificationVo {
 
     private Long id;
 
-    private Long newsId;
-
     private String content;
 
     private Date Time;
@@ -18,14 +16,6 @@ public class NotificationVo {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getNewsId() {
-        return newsId;
-    }
-
-    public void setNewsId(Long newsId) {
-        this.newsId = newsId;
     }
 
     public String getContent() {

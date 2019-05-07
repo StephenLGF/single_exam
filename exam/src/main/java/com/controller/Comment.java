@@ -51,13 +51,6 @@ public class Comment {
             return new ResponseEntity(null, HttpStatus.UNAUTHORIZED);
         }
         com.entity.Comment comment = commentService.AddComment(newsId, userId, content);
-        List<Collection> collectionList = collectionService.getCollectionByNewsId(newsId);
-        if (collectionList != null && collectionList.size() > 0) {
-            for (Collection collection : collectionList) {
-                String noticeStr = "您收藏的新闻有了新的评论";
-                notificationService.AddNotification(newsId, collection.getUserId(), noticeStr);
-            }
-        }
         if (comment != null) {
             return new ResponseEntity(comment, HttpStatus.OK);
         }
