@@ -45,6 +45,7 @@ public class NotificationService {
         notification.setUserId(userId);
         notification.setTime(new Date(System.currentTimeMillis()));
         notification.setContent(content);
+        notification.setDeleted(0);
         notificationRepository.save(notification);
         return notification;
     }
