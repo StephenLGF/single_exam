@@ -49,7 +49,8 @@ public class CollectionService {
             collection.setDeleted(0);
             collection.setTime(new Date(System.currentTimeMillis()));
         } else {
-            collection.setDeleted(1);
+            collection.setDeleted(collection.getDeleted() > 0 ? 0 : 1);
+            collection.setTime(new Date(System.currentTimeMillis()));
         }
 
         collectionRepository.save(collection);
