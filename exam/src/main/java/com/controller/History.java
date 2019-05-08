@@ -35,7 +35,7 @@ public class History {
             return new ResponseEntity(null, HttpStatus.UNAUTHORIZED);
         }
         List<VisitListVo> visitListVoList = visitListService.getVisitListByUserId(userId);
-        return new ResponseEntity(visitListVoList, HttpStatus.OK);
+        return new ResponseEntity<>(visitListVoList, HttpStatus.OK);
     }
 
     @PutMapping(value = "/history/news/{newsId}")
@@ -55,7 +55,7 @@ public class History {
         }
         VisitList visitList = visitListService.addVisitHistory(newsId, userId);
         if (visitList != null) {
-            return new ResponseEntity(visitList, HttpStatus.OK);
+            return new ResponseEntity<>(visitList, HttpStatus.OK);
         }
         return new ResponseEntity(null, HttpStatus.NOT_FOUND);
     }
@@ -76,6 +76,6 @@ public class History {
             return new ResponseEntity(null, HttpStatus.UNAUTHORIZED);
         }
         VisitList visitList = visitListService.deleteVisitHistory(visitId, userId);
-        return new ResponseEntity(visitList, HttpStatus.OK);
+        return new ResponseEntity<>(visitList, HttpStatus.OK);
     }
 }

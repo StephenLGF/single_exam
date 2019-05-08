@@ -31,7 +31,7 @@ public class Notice {
         if (now - tokenTime > 1000 * 60 * 60 * 5) {
             return new ResponseEntity(null, HttpStatus.UNAUTHORIZED);
         }
-        return new ResponseEntity(notificationService.getNotificationByUserId(userId), HttpStatus.OK);
+        return new ResponseEntity<>(notificationService.getNotificationByUserId(userId), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/notice/{noticeId}")
@@ -51,6 +51,6 @@ public class Notice {
             return new ResponseEntity(null, HttpStatus.UNAUTHORIZED);
         }
         Notification notification = notificationService.deletaNotification(userId, noticeId);
-        return new ResponseEntity(notification, HttpStatus.OK);
+        return new ResponseEntity<>(notification, HttpStatus.OK);
     }
 }

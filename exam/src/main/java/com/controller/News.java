@@ -20,28 +20,28 @@ public class News {
 
     @GetMapping(value = "/news/all")
     public ResponseEntity getAll() {
-        return new ResponseEntity(newsService.getAllNews(), HttpStatus.OK);
+        return new ResponseEntity<>(newsService.getAllNews(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/news/words")
     public ResponseEntity getWords() {
-        return new ResponseEntity(newsService.getAllWords(), HttpStatus.OK);
+        return new ResponseEntity<>(newsService.getAllWords(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/news/pics")
     public ResponseEntity getPics() {
-        return new ResponseEntity(newsService.getAllPics(), HttpStatus.OK);
+        return new ResponseEntity<>(newsService.getAllPics(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/news/videos")
     public ResponseEntity getVideos() {
-        return new ResponseEntity(newsService.getAllVideos(), HttpStatus.OK);
+        return new ResponseEntity<>(newsService.getAllVideos(), HttpStatus.OK);
     }
 
 
     @GetMapping(value = "/news/{newsId}")
     public ResponseEntity getNewsById(@PathVariable Long newsId) {
-        return new ResponseEntity(newsService.getNewsById(newsId), HttpStatus.OK);
+        return new ResponseEntity<>(newsService.getNewsById(newsId), HttpStatus.OK);
     }
 
 }

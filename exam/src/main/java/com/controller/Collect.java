@@ -38,7 +38,7 @@ public class Collect {
             return new ResponseEntity(null, HttpStatus.UNAUTHORIZED);
         }
         List<News> newsList = collectionService.getCollectionByUserId(userId);
-        return new ResponseEntity(newsService.translate(newsList), HttpStatus.OK);
+        return new ResponseEntity<>(newsService.translate(newsList), HttpStatus.OK);
     }
 
     @PutMapping(value = "/collection/{newsId}")
@@ -58,7 +58,7 @@ public class Collect {
         }
         Collection collection = collectionService.addCollection(newsId, userId);
         if (collection != null) {
-            return new ResponseEntity(collection, HttpStatus.OK);
+            return new ResponseEntity<>(collection, HttpStatus.OK);
         }
         return new ResponseEntity(null, HttpStatus.NOT_FOUND);
     }

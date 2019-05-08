@@ -30,7 +30,7 @@ public class Comment {
 
     @GetMapping(value = "/comment/news/{newsId}")
     public ResponseEntity getNewsById(@PathVariable Long newsId) {
-        return new ResponseEntity(commentService.getCommentByNewsId(newsId), HttpStatus.OK);
+        return new ResponseEntity<>(commentService.getCommentByNewsId(newsId), HttpStatus.OK);
     }
 
 
@@ -52,7 +52,7 @@ public class Comment {
         }
         com.entity.Comment comment = commentService.AddComment(newsId, userId, content);
         if (comment != null) {
-            return new ResponseEntity(comment, HttpStatus.OK);
+            return new ResponseEntity<>(comment, HttpStatus.OK);
         }
         return new ResponseEntity(null, HttpStatus.NOT_FOUND);
     }
@@ -75,6 +75,6 @@ public class Comment {
         }
         Long newsId = 0L;
         com.entity.Comment comment = commentService.AddComment(newsId, userId, content);
-        return new ResponseEntity(comment, HttpStatus.OK);
+        return new ResponseEntity<>(comment, HttpStatus.OK);
     }
 }

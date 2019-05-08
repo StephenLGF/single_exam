@@ -45,7 +45,7 @@ public class Sign {
         Map<String, String> result = new HashMap<>();
         result.put("username", user.getName());
         result.put("token", hashids.encode(user.getId(), now, x));
-        return new ResponseEntity(result, HttpStatus.OK);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @PutMapping(value = "/sign")
@@ -78,7 +78,7 @@ public class Sign {
         Map<String, String> result = new HashMap<>();
         result.put("username", user.getName());
         result.put("token", hashids.encode(user.getId(), now, x));
-        return new ResponseEntity(result, HttpStatus.OK);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
 
