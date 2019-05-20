@@ -57,6 +57,11 @@ public class Comment {
         return new ResponseEntity(null, HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping(value = "/feedback")
+    public ResponseEntity getFeedback() {
+        return new ResponseEntity<>(commentService.getFeedback(), HttpStatus.OK);
+    }
+
     @PutMapping(value = "/feedback")
     public ResponseEntity createFeedback(@RequestBody String json) {
         JSONObject body = JSONObject.parseObject(json);

@@ -57,4 +57,30 @@ public class CommentService {
         commentRepository.save(comment);
         return comment;
     }
+
+    public List<CommentVo> getFeedback() {
+        List<Comment> commentList = commentRepository.findByNewsId(0L);
+        List<CommentVo> commentVoList = new ArrayList<>();
+        if (commentList == null || commentList.size() == 0) {
+            return commentVoList;
+        }
+        Set<Long> userSet = new HashSet<>();
+        for (Comment comment : commentList) {
+            userSet.add(comment.getUserId());
+        }
+        List<User> userList = userRepository.findByIdIn(userSet);
+        for (Comment comment : commentList) {
+            CommentVo commentVo = new CommentVo();
+            commentVo.setContent(comment.getContent());
+            commentVo.setTime(comment.getTime());
+            for (User user : userList) {
+                if (user.getId().equals(comment.getUserId())) {
+                    commentVo.setUserName(user.getName());
+                    break;
+                }
+            }
+            commentVoList.add(commentVo);
+        }
+        return commentVoList;
+    }
 }
