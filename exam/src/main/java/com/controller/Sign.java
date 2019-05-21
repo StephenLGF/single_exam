@@ -96,4 +96,9 @@ public class Sign {
             return null;
         }
     }
+
+    @GetMapping(value = "/users")
+    public ResponseEntity getFeedback() {
+        return new ResponseEntity<>(userService.getAllUser(), HttpStatus.OK);
+    }
 }

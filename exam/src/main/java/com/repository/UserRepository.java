@@ -13,4 +13,6 @@ public interface UserRepository extends JpaSpecificationExecutor<User>, JpaRepos
     User findByTelNum(Long telNum);
 
     List<User> findByIdIn(Set<Long> ids);
+
+    List<User> findAll();
 }

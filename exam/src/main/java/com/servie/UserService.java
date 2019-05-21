@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 @Configuration
@@ -24,5 +25,9 @@ public class UserService {
 
     public User getUserNameByTelNum(Long telNum) {
         return userRepository.findByTelNum(telNum);
+    }
+
+    public List<User> getAllUser(){
+        return  userRepository.findAll();
     }
 }
