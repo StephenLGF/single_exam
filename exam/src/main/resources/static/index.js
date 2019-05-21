@@ -3,6 +3,7 @@ $(document).ready(function () {
         tableClear();
         $.ajax({
             url: "/api/feedback", success: function (result) {
+                tableClear();
                 $("#title").text("反馈列表");
                 $("#th1").text("用户");
                 $("#th2").text("反馈");
@@ -22,6 +23,7 @@ $(document).ready(function () {
         tableClear();
         $.ajax({
             url: "/api/users", success: function (result) {
+                tableClear();
                 $("#title").text("用户列表");
                 $("#th1").text("手机号码");
                 $("#th2").text("用户名");
@@ -44,7 +46,67 @@ $(document).ready(function () {
         $("#input-form").append("<button id='content-submit' onclick='contentSubmit()'>提交</button>");
     });
 
+    $("#send-news").click(function () {
+        tableClear();
+        $("#title").text("新闻发布");
+        $("#input-form").append("<p>请选择新闻的类型</p>");
+        $("#input-form").append("<input type='text' placeholder='请输入要发布新闻的标题' id='news-title'></input>");
+        $("#input-form").append("<button id='send-news-text' onclick='newsContent(0)'>文字</button>");
+        $("#input-form").append("<button id='send-news-image' onclick='newsContent(1)'>图片</button>");
+        $("#input-form").append("<button id='send-news-video' onclick='newsContent(2)'>视频</button>");
+        $("#input-form").append("<div id='news-content-form'></div>");
+        $("#input-form").append("<button id='content-submit' onclick='newsSubmit()'>提交</button>");
+    });
 });
+
+function newsSubmit() {
+    var title = $("#news-title").val();
+    if (!title) {
+        alert("请输入新闻标题");
+        return;
+    }
+    var contents = [];
+    $(".news-content").each(function (index) {
+        var content = $(".news-content").eq(index).val();
+        if (!!content) {
+            contents.push(content)
+        }
+    });
+    if (contents.length === 0) {
+        alert("新闻的内容不能为空");
+        return;
+    }
+
+}
+
+function newsContent(index) {
+    $("#news-content-form").empty();
+    var handleClick = "addNewsContent(" + index + ")";
+    switch (index) {
+        case 0:
+            $("#news-content-form").append("<button id='content-submit' onclick=" + handleClick + ">添加段落</button>");
+            $("#news-content-form").append("<textarea placeholder='请输入段落文字' class='news-content'></textarea>");
+            break;
+        case 1:
+            $("#news-content-form").append("<button id='content-submit' onclick=" + handleClick + ">添加图片</button>");
+            $("#news-content-form").append("<input type='text' placeholder='请输入图片链接' class='news-content'></input>");
+            break;
+        case 2:
+            $("#news-content-form").append("<input type='text' placeholder='请输入视频链接' class='news-content'></input>");
+            break;
+    }
+}
+
+function addNewsContent(index) {
+    switch (index) {
+        case 0:
+            $("#news-content-form").append("<textarea placeholder='请输入段落文字' class='news-content'></textarea>");
+            break;
+        case 1:
+            $("#news-content-form").append("<input type='text' placeholder='请输入图片链接' class='news-content'></input>");
+            break;
+    }
+}
 
 function contentSubmit() {
     var inputContent = $("#notice-content").val();

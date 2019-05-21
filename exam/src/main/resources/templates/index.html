@@ -5,10 +5,15 @@
     <title>管理界面</title>
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
     <script  type="text/javascript" src="/index.js"></script>
+    <script  type="text/javascript" src="../static/index.js"></script>
 </head>
+<style>
+    textarea.news-content {display:block; width: 800px; height: 80px}
+    input.news-content {display:block; width: 800px}
+</style>
 <body>
 <p>功能选择</p>
-<button>发布新闻</button>
+<button id="send-news">发布新闻</button>
 <button id="send-notice">发布通知</button>
 <button id="show-user">用户列表</button>
 <button id="show-feedback">反馈列表</button>
