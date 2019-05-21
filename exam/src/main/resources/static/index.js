@@ -5,9 +5,7 @@ $(document).ready(function () {
             url: "/api/feedback", success: function (result) {
                 tableClear();
                 $("#title").text("反馈列表");
-                $("#th1").text("用户");
-                $("#th2").text("反馈");
-                $("#th3").text("时间");
+                $("thead").append("<tr><th>用户</th><th>反馈</th><th >时间</th></tr>");
                 result.forEach(function (item) {
                     var tds = "";
                     tds += "<td>" + item.userName + "</td>";
@@ -19,15 +17,37 @@ $(document).ready(function () {
         });
     });
 
+    $("#show-news").click(function () {
+        tableClear();
+        $.ajax({
+            url: "/api/news/all", success: function (result) {
+                tableClear();
+                $("#title").text("新闻列表");
+                $("#th1").text("新闻标题");
+                $("#th2").text("新闻类型");
+                $("#th3").text("删除操作");
+                $("thead").append("<tr><th>新闻标题</th><th>新闻类型 0-文字，1-图片，2-视频</th><th>发布者</th><th>时间</th><th>操作</th></tr>");
+                result.forEach(function (item) {
+                    var newsDelete = "newsDelete(" + item.newsId + ")";
+                    var tds = "";
+                    tds += "<td>" + item.title + "</td>";
+                    tds += "<td>" + item.type + "</td>";
+                    tds += "<td>" + item.provider + "</td>";
+                    tds += "<td>" + getLocalTime(item.createTime) + "</td>";
+                    tds += "<td><button onclick=" + newsDelete + ">删除</button></td>";
+                    $("tbody").append("<tr id= 'news-" + item.newsId + "'>" + tds + "</tr>")
+                })
+            }
+        });
+    });
+
     $("#show-user").click(function () {
         tableClear();
         $.ajax({
             url: "/api/users", success: function (result) {
                 tableClear();
                 $("#title").text("用户列表");
-                $("#th1").text("手机号码");
-                $("#th2").text("用户名");
-                $("#th3").text("创建时间");
+                $("thead").append("<tr><th>手机号码</th><th>用户名</th><th >创建时间</th></tr>");
                 result.forEach(function (item) {
                     var tds = "";
                     tds += "<td>" + item.telNum + "</td>";
@@ -57,6 +77,18 @@ $(document).ready(function () {
         $("#input-form").append("<div id='news-content-form'></div>");
     });
 });
+
+function newsDelete(index) {
+    $.ajax({
+        url: "/api/news/" + index,
+        type: "DELETE",
+        contentType: "application/json",
+        dataType: "json", success: function (result) {
+            $("#news-" + index).remove();
+            alert("删除成功");
+        }
+    });
+}
 
 function newsSubmit(index) {
     var title = $("#news-title").val();
@@ -140,7 +172,7 @@ function contentSubmit() {
 }
 
 function tableClear() {
-    $("th").text("");
+    $("thead").empty();
     $("tbody").empty();
     $("#input-form").empty();
 }
