@@ -3,6 +3,7 @@ package com.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.entity.Notification;
 import com.servie.NotificationService;
+import com.servie.UserService;
 import org.hashids.Hashids;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
+import java.util.Set;
 
 @RestController
 @RequestMapping("api")
@@ -17,6 +19,9 @@ public class Notice {
 
     @Autowired
     private NotificationService notificationService = null;
+
+    @Autowired
+    private UserService userService = null;
 
     @GetMapping(value = "/notice")
     public ResponseEntity getNotice(@RequestParam(value = "token") String token) {
@@ -52,5 +57,16 @@ public class Notice {
         }
         Notification notification = notificationService.deletaNotification(userId, noticeId);
         return new ResponseEntity<>(notification, HttpStatus.OK);
+    }
+
+    @PutMapping(value = "notice")
+    public ResponseEntity createWrongQuestion(@RequestBody String json) {
+        JSONObject body = JSONObject.parseObject(json);
+        String content = body.getString("content");
+        Set<Long> userIds = userService.getAllUserId();
+        if(userIds.size() > 0){
+            notificationService.AddNotification(userIds, content);
+        }
+        return new ResponseEntity(userIds, HttpStatus.OK);
     }
 }

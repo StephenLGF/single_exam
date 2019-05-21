@@ -7,10 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 @Configuration
@@ -38,14 +35,18 @@ public class NotificationService {
         return notificationVoList;
     }
 
-    public Notification AddNotification(Long userId, String content) {
-        Notification notification = new Notification();
-        notification.setUserId(userId);
-        notification.setTime(new Date(System.currentTimeMillis()));
-        notification.setContent(content);
-        notification.setDeleted(0);
-        notificationRepository.save(notification);
-        return notification;
+    public void AddNotification(Set<Long> userIds, String content) {
+        List<Notification> notificationList = new ArrayList<>();
+        Date dateNow = new Date(System.currentTimeMillis());
+        for (Long userId : userIds) {
+            Notification notification = new Notification();
+            notification.setUserId(userId);
+            notification.setTime(dateNow);
+            notification.setContent(content);
+            notification.setDeleted(0);
+            notificationList.add(notification);
+        }
+        notificationRepository.save(notificationList);
     }
 
     public Notification deletaNotification(Long userId, Long noticeId) {
