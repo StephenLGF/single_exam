@@ -1,8 +1,8 @@
 $(document).ready(function () {
     $("#show-feedback").click(function () {
+        tableClear();
         $.ajax({
-            url: "http://127.0.0.1:8081/api/feedback", success: function (result) {
-                tableClear();
+            url: "/api/feedback", success: function (result) {
                 $("#title").text("反馈列表");
                 $("#th1").text("用户");
                 $("#th2").text("反馈");
@@ -19,9 +19,9 @@ $(document).ready(function () {
     });
 
     $("#show-user").click(function () {
+        tableClear();
         $.ajax({
-            url: "http://127.0.0.1:8081/api/users", success: function (result) {
-                tableClear();
+            url: "/api/users", success: function (result) {
                 $("#title").text("用户列表");
                 $("#th1").text("手机号码");
                 $("#th2").text("用户名");
@@ -37,11 +37,37 @@ $(document).ready(function () {
         });
     });
 
+    $("#send-notice").click(function () {
+        tableClear();
+        $("#title").text("系统通知发布");
+        $("#input-form").append("<input type='text' placeholder='请输入要发布消息的内容' id='notice-content'></input>");
+        $("#input-form").append("<button id='content-submit' onclick='contentSubmit()'>提交</button>");
+    });
+
 });
+
+function contentSubmit() {
+    var inputContent = $("#notice-content").val();
+    if (!inputContent) {
+        alert("请输入消息内容");
+        return;
+    }
+    $.ajax({
+        url: "/api/notice",
+        type: "PUT",
+        contentType: "application/json",
+        data: JSON.stringify({content: inputContent}),
+        dataType: "json", success: function (result) {
+            alert("发布成功");
+            $("#input-form").empty();
+        }
+    });
+}
 
 function tableClear() {
     $("th").text("");
     $("tbody").empty();
+    $("#input-form").empty();
 }
 
 function getLocalTime(nS) {
