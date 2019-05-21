@@ -1,15 +1,12 @@
 package com.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.entity.Collection;
 import com.servie.NewsService;
-import org.hashids.Hashids;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.Instant;
 
 @RestController
 @RequestMapping("api")
@@ -44,4 +41,13 @@ public class News {
         return new ResponseEntity<>(newsService.getNewsById(newsId), HttpStatus.OK);
     }
 
+    @PutMapping(value = "/news")
+    public ResponseEntity createNews(@RequestBody String json) {
+        JSONObject body = JSONObject.parseObject(json);
+        JSONArray contentArray = body.getJSONArray("contents");
+        String contents = contentArray.toString();
+        Integer type = body.getInteger("type");
+        String title = body.getString("title");
+        return new ResponseEntity<>(newsService.createNews(title, contents, type), HttpStatus.OK);
+    }
 }

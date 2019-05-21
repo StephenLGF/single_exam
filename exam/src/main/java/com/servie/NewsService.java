@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.sql.Date;
 import java.util.*;
 
 @Service
@@ -88,5 +89,15 @@ public class NewsService {
         }
         JSONArray jsonArray = JSON.parseArray(news.getContent());
         return jsonArray;
+    }
+
+    public News createNews(String title, String contents, Integer type) {
+        News news = new News();
+        news.setTitle(title);
+        news.setProviderId(1L);
+        news.setContent(contents);
+        news.setType(type);
+        news.setTime(new Date(System.currentTimeMillis()));
+        return newsRepository.save(news);
     }
 }

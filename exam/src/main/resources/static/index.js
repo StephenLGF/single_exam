@@ -55,11 +55,10 @@ $(document).ready(function () {
         $("#input-form").append("<button id='send-news-image' onclick='newsContent(1)'>图片</button>");
         $("#input-form").append("<button id='send-news-video' onclick='newsContent(2)'>视频</button>");
         $("#input-form").append("<div id='news-content-form'></div>");
-        $("#input-form").append("<button id='content-submit' onclick='newsSubmit()'>提交</button>");
     });
 });
 
-function newsSubmit() {
+function newsSubmit(index) {
     var title = $("#news-title").val();
     if (!title) {
         alert("请输入新闻标题");
@@ -76,22 +75,36 @@ function newsSubmit() {
         alert("新闻的内容不能为空");
         return;
     }
-
+    $.ajax({
+        url: "/api/news",
+        type: "PUT",
+        contentType: "application/json",
+        data: JSON.stringify({type: index, contents: contents, title: title}),
+        dataType: "json", success: function (result) {
+            $("#input-form").empty();
+            alert("发布成功");
+        }
+    });
 }
 
 function newsContent(index) {
     $("#news-content-form").empty();
+    $("#content-submit").remove();
     var handleClick = "addNewsContent(" + index + ")";
+    var handleSubmit = "newsSubmit(" + index + ")";
     switch (index) {
         case 0:
+            $("#input-form").append("<button id='content-submit' onclick=" + handleSubmit + ">提交</button>");
             $("#news-content-form").append("<button id='content-submit' onclick=" + handleClick + ">添加段落</button>");
             $("#news-content-form").append("<textarea placeholder='请输入段落文字' class='news-content'></textarea>");
             break;
         case 1:
+            $("#input-form").append("<button id='content-submit' onclick=" + handleSubmit + ">提交</button>");
             $("#news-content-form").append("<button id='content-submit' onclick=" + handleClick + ">添加图片</button>");
             $("#news-content-form").append("<input type='text' placeholder='请输入图片链接' class='news-content'></input>");
             break;
         case 2:
+            $("#input-form").append("<button id='content-submit' onclick=" + handleSubmit + ">提交</button>");
             $("#news-content-form").append("<input type='text' placeholder='请输入视频链接' class='news-content'></input>");
             break;
     }
