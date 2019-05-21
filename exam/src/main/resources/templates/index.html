@@ -4,15 +4,7 @@
     <meta charset="utf-8"></meta>
     <title>管理界面</title>
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            $("#show-feedback").click(function(){
-                $.ajax({url:"http://127.0.0.1:8081/api/feedback",success:function(result){
-                        alert(result);
-                    }});
-            });
-        });
-    </script>
+    <script  type="text/javascript" src="/index.js"></script>
 </head>
 <body>
 <p>功能选择</p>
@@ -20,5 +12,10 @@
 <button>发布通知</button>
 <button>发布新闻</button>
 <button id="show-feedback">反馈列表</button>
+<p id="title"></p>
+<table border="1">
+    <thead><th id="th1"></th><th id="th2"></th><th id="th3"></th></thead>
+    <tbody></tbody>
+</table>
 </body>
 </html>
