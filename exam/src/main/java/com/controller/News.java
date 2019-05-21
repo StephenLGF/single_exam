@@ -50,4 +50,9 @@ public class News {
         String title = body.getString("title");
         return new ResponseEntity<>(newsService.createNews(title, contents, type), HttpStatus.OK);
     }
+
+    @DeleteMapping(value = "/news/{newsId}")
+    public ResponseEntity deleteNewsById(@PathVariable Long newsId) {
+        return new ResponseEntity<>(newsService.deleteNewsById(newsId), HttpStatus.OK);
+    }
 }

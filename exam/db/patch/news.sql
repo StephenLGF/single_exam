@@ -13,6 +13,7 @@ CREATE TABLE `news` (
   `content`      TEXT                  DEFAULT NULL,
   `type`         TINYINT(1)   NOT NULL,
   `created_time` DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `deleted`         TINYINT(1)   NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB

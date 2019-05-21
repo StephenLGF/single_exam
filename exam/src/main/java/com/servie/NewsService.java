@@ -66,6 +66,9 @@ public class NewsService {
         List<Provider> providerList = providerRepository.findByIdIn(providerIdSet);
 
         for (News news : newsList) {
+            if (news.getDeleted() > 0) {
+                continue;
+            }
             NewsVo newsVo = new NewsVo();
             newsVo.setNewsId(news.getId());
             newsVo.setTitle(news.getTitle());
@@ -98,6 +101,16 @@ public class NewsService {
         news.setContent(contents);
         news.setType(type);
         news.setTime(new Date(System.currentTimeMillis()));
+        news.setDeleted(0);
+        return newsRepository.save(news);
+    }
+
+    public News deleteNewsById(Long newsId) {
+        News news = newsRepository.findById(newsId);
+        if (news == null) {
+            return null;
+        }
+        news.setDeleted(1);
         return newsRepository.save(news);
     }
 }
