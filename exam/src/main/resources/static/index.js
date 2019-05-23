@@ -5,13 +5,16 @@ $(document).ready(function () {
             url: "/api/feedback", success: function (result) {
                 tableClear();
                 $("#title").text("反馈列表");
-                $("thead").append("<tr><th>用户</th><th>反馈</th><th >时间</th></tr>");
+                $("thead").append("<tr><th>用户</th><th>反馈</th><th >时间</th><th >操作</th></tr>");
                 result.forEach(function (item) {
                     var tds = "";
+                    var id = 'feedback-' + item.id;
+                    var handleClick = "feedbackDelete(" + item.id + ")";
                     tds += "<td>" + item.userName + "</td>";
                     tds += "<td>" + item.content + "</td>";
                     tds += "<td>" + getLocalTime(item.time) + "</td>";
-                    $("tbody").append("<tr>" + tds + "</tr>")
+                    tds += "<td><button onclick=" + handleClick + ">删除</button></td>";
+                    $("tbody").append("<tr id= " + id + ">" + tds + "</tr>")
                 })
             }
         });
@@ -77,6 +80,18 @@ $(document).ready(function () {
         $("#input-form").append("<div id='news-content-form'></div>");
     });
 });
+
+function feedbackDelete(index) {
+    $.ajax({
+        url: "/api/feedback/" + index,
+        type: "DELETE",
+        contentType: "application/json",
+        dataType: "json", success: function (result) {
+            $("#feedback-" + index).remove();
+            alert("删除成功");
+        }
+    });
+}
 
 function newsDelete(index) {
     $.ajax({

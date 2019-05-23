@@ -11,6 +11,7 @@ CREATE TABLE `comment` (
   `news_id`      INT(11)      NOT NULL,
   `content`      VARCHAR(254) NOT NULL,
   `visited_time` DATETIME     NOT NULL       DEFAULT CURRENT_TIMESTAMP,
+  `deleted`         TINYINT(1)   NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB

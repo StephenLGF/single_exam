@@ -30,10 +30,15 @@ public class CommentService {
         }
         Set<Long> userSet = new HashSet<>();
         for (Comment comment : commentList) {
-            userSet.add(comment.getUserId());
+            if (comment.getDeleted() == 0) {
+                userSet.add(comment.getUserId());
+            }
         }
         List<User> userList = userRepository.findByIdIn(userSet);
         for (Comment comment : commentList) {
+            if (comment.getDeleted() > 0) {
+                continue;
+            }
             CommentVo commentVo = new CommentVo();
             commentVo.setContent(comment.getContent());
             commentVo.setTime(comment.getTime());
@@ -54,6 +59,7 @@ public class CommentService {
         comment.setUserId(userId);
         comment.setTime(new Date(System.currentTimeMillis()));
         comment.setContent(content);
+        comment.setDeleted(0);
         commentRepository.save(comment);
         return comment;
     }
@@ -70,7 +76,11 @@ public class CommentService {
         }
         List<User> userList = userRepository.findByIdIn(userSet);
         for (Comment comment : commentList) {
+            if (comment.getDeleted() > 0) {
+                continue;
+            }
             CommentVo commentVo = new CommentVo();
+            commentVo.setId(comment.getId());
             commentVo.setContent(comment.getContent());
             commentVo.setTime(comment.getTime());
             for (User user : userList) {
@@ -82,5 +92,15 @@ public class CommentService {
             commentVoList.add(commentVo);
         }
         return commentVoList;
+    }
+
+    public Comment deleteFeedback(Long id) {
+        Comment comment = commentRepository.findOne(id);
+        if (comment == null) {
+            return null;
+        }
+        comment.setDeleted(1);
+        commentRepository.save(comment);
+        return comment;
     }
 }
